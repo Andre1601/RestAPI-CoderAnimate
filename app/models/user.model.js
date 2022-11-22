@@ -1,14 +1,13 @@
 module.exports = (mongoose) => {
   const schema = mongoose.Schema(
     {
-      uid: Object,
-      title: String,
-      // image: Blob,
-      description: String,
-      tags: Array,
-      viewed: Number,
-      liked: Number,
-      published: Boolean,
+      username: String,
+      name: String,
+      email: String,
+      password: String,
+      social: Array,
+      Followers: Array,
+      Following: Array,
     },
     { timestamps: true }
   );
@@ -19,6 +18,6 @@ module.exports = (mongoose) => {
     return object;
   });
 
-  const Post = mongoose.model("post", schema);
+  const Post = mongoose.model("user", schema);
   return Post;
 };

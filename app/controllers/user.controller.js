@@ -1,17 +1,5 @@
 const db = require("../models");
-const Post = db.posts;
-
-exports.findAll = (req, res) => {
-  Post.find()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error while retrieving post.",
-      });
-    });
-};
+const Post = db.user;
 
 exports.create = (req, res) => {
   const post = new Post({
@@ -74,28 +62,6 @@ exports.update = (req, res) => {
     .catch((err) => {
       res.status(409).send({
         message: err.message || "Some error while update post.",
-      });
-    });
-};
-
-exports.delete = (req, res) => {
-  const id = req.params.id;
-
-  Post.findByIdAndRemove(id)
-    .then((result) => {
-      if (!result) {
-        res.status(404).send({
-          message: "Post not found",
-        });
-      }
-
-      res.send({
-        message: "post was deleted",
-      });
-    })
-    .catch((err) => {
-      res.status(409).send({
-        message: err.message || "Some error while delete post.",
       });
     });
 };

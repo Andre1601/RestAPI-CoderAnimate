@@ -8,5 +8,5 @@ module.exports = (app) => {
     router.put('/update/:id', posts.update)
     router.delete('/delete/:id', posts.delete)
 
-    app.use('/api/user', router) 
+    app.use('/api/post', router) 
 }
