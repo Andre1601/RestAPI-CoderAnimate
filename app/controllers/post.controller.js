@@ -15,8 +15,9 @@ exports.findAll = (req, res) => {
 
 exports.create = (req, res) => {
   const post = new Post({
-    uid: req.body.id,
+    uid: req.body.uid,
     title: req.body.title,
+    code: req.body.code,
     description: req.body.description,
     tags: req.body.tags,
     viewed: req.body.viewed || 0,

@@ -4,6 +4,7 @@ module.exports = (mongoose) => {
       uid: Object,
       title: String,
       // image: Blob,
+      code: String,
       description: String,
       tags: Array,
       viewed: Number,

@@ -3,13 +3,13 @@ const Post = db.user;
 
 exports.create = (req, res) => {
   const post = new Post({
-    uid: req.body.id,
-    title: req.body.title,
-    description: req.body.description,
-    tags: req.body.tags,
-    viewed: req.body.viewed || 0,
-    liked: req.body.liked || 0,
-    published: req.body.published ? req.body.published : false,
+    username: req.body.username,
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    social: req.body.social || [],
+    followers: req.body.followers || [],
+    following: req.body.following || [],
   });
 
   post
