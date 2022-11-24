@@ -1,6 +1,18 @@
 const db = require("../models");
 const Post = db.user;
 
+exports.findAll = (req, res) => {
+  Post.find()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error while retrieving post.",
+      });
+    });
+};
+
 exports.create = (req, res) => {
   const post = new Post({
     username: req.body.username,
