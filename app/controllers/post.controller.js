@@ -19,10 +19,7 @@ exports.create = (req, res) => {
     title: req.body.title,
     code: req.body.code,
     description: req.body.description,
-    tags: req.body.tags,
-    viewed: req.body.viewed || 0,
-    liked: req.body.liked || 0,
-    published: req.body.published ? req.body.published : false,
+    tags: req.body.tags
   });
 
   post

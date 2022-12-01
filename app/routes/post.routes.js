@@ -1,12 +1,13 @@
 module.exports = (app) => {
-    const posts = require('../controllers/post.controller')
-    const router = require('express').Router()
+  const posts = require("../controllers/post.controller");
+  const router = require("express").Router();
+  const verifyToken = require("../routes/verifyToken");
 
-    router.get('/', posts.findAll)
-    router.post('/create', posts.create)
-    router.get('/:id', posts.findOne)
-    router.put('/update/:id', posts.update)
-    router.delete('/delete/:id', posts.delete)
+  router.get("/", verifyToken, posts.findAll);
+  router.post("/create", posts.create);
+  router.get("/:id", posts.findOne);
+  router.put("/update/:id", posts.update);
+  router.delete("/delete/:id", posts.delete);
 
-    app.use('/api/post', router) 
-}
+  app.use("/post", router);
+};
