@@ -5,9 +5,11 @@ module.exports = (mongoose) => {
       name: String,
       email: String,
       password: String,
+      location: String,
+      bio: String,
       social: Array,
-      Followers: Array,
-      Following: Array,
+      followers: Array,
+      following: Array,
     },
     { timestamps: true }
   );

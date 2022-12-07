@@ -1,10 +1,11 @@
+const { user } = require("../models");
 const db = require("../models");
 const Post = db.posts;
 
 exports.findAll = (req, res) => {
   Post.find()
     .then((result) => {
-      res.send(result);
+      res.send({ status: "Success", result: result });
     })
     .catch((err) => {
       res.status(500).send({
@@ -15,17 +16,17 @@ exports.findAll = (req, res) => {
 
 exports.create = (req, res) => {
   const post = new Post({
-    uid: req.body.uid,
+    uid: req.user.id,
     title: req.body.title,
     code: req.body.code,
     description: req.body.description,
-    tags: req.body.tags
+    tags: req.body.tags,
   });
 
   post
     .save(post)
     .then((result) => {
-      res.send(result);
+      res.send({ message: "Success", result: result });
     })
     .catch((err) => {
       res.status(409).send({
@@ -45,7 +46,7 @@ exports.findOne = (req, res) => {
         });
       }
 
-      res.send({ result });
+      res.send({ message: "Success", result: result });
     })
     .catch((err) => {
       res.status(409).send({
@@ -94,6 +95,49 @@ exports.delete = (req, res) => {
     .catch((err) => {
       res.status(409).send({
         message: err.message || "Some error while delete post.",
+      });
+    });
+};
+
+exports.likePost = async (req, res) => {
+  const id = req.params.id;
+  const post = await Post.findById(id);
+  const findUser = await user.findById(req.user.id);
+
+  
+  if (!post.liked.includes(findUser.username)) {
+    return Post.findByIdAndUpdate(id, { $push: { liked: findUser.username } })
+      .then((result) => {
+        if (!result) {
+          res.status(404).send({
+            message: "post not found",
+          });
+        }
+        res.send({
+          message: "success",
+        });
+      })
+      .catch((err) => {
+        res.status(409).send({
+          message: err.message || "Some error while liking post.",
+        });
+      });
+  }
+
+  return Post.findByIdAndUpdate(id, { $pull: { liked: findUser.username } })
+    .then((result) => {
+      if (!result) {
+        res.status(404).send({
+          message: "post not found",
+        });
+      }
+      res.send({
+        message: "success",
+      });
+    })
+    .catch((err) => {
+      res.status(409).send({
+        message: err.message || "Some error while liking post.",
       });
     });
 };
